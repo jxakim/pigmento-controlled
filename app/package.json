@@ -1,6 +1,6 @@
 {
 	"name": "app",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"private": true,
 	"type": "module",
 	"imports": {
@@ -15,7 +15,9 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"test:unit": "vitest",
-		"test": "npm run test:unit -- --run"
+		"test": "npm run test:unit -- --run",
+		"lint": "npx @biomejs/biome check",
+		"lint:fix": "npx @biomejs/biome check --write"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^8.0.1",
@@ -29,5 +31,10 @@
 		"vite": "^8.3.8",
 		"vitest": "^5.1.0",
 		"vitest-browser-svelte": "^3.1.0"
+	},
+	"dependencies": {
+		"@biomejs/biome": "^2.6.8",
+		"@digdir/designsystemet-css": "^1.24.1",
+		"@digdir/designsystemet-web": "^1.24.1"
 	}
 }
