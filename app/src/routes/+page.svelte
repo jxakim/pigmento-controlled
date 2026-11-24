@@ -31,7 +31,7 @@
 		gap: 0.375rem;
 	}
 
-    @media (max-width: 57.5rem) {
+    @media (width < 57.5rem) {
 		.home {
 			padding: 1rem;
 		}

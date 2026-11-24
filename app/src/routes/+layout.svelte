@@ -3,6 +3,8 @@
 	import "@digdir/designsystemet-web"
 	import "@digdir/designsystemet-css"
 	import "../../designsystemet/themes/pigmento.css"
+
+	import Sidebar from "#lib/components/layout/Sidebar.svelte"
 	import favicon from "#lib/assets/favicon.png"
 	import { onNavigate } from "$app/navigation"
 	import type { LayoutProps } from "./$types"
@@ -30,6 +32,7 @@
 </svelte:head>
 
 <div class="layout">
+	<Sidebar />
 
 	<main class="content">
 		{@render children()}
@@ -39,22 +42,16 @@
 <style>
 	.layout {
 		display: flex;
-		flex-wrap: wrap;
 		min-height: 100dvh;
 	}
 
 	.content {
-		flex: 999 1 37.5rem;
+		flex: 1;
 		min-width: 0;
 	}
 
-	@media (max-width: 57.5rem) {
-		.layout {
-			display: block;
-		}
-
-		.content {
-			padding-bottom: var(--pg-bottom-bar-space);
-		}
+	@media (width < 57.5rem) {
+		.layout { display: block; }
+		.content { padding-bottom: var(--pg-bottom-bar-space); }
 	}
 </style>
