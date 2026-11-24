@@ -1,0 +1,121 @@
+:root {
+	--pg-font-heading: "Bricolage Grotesque", "Inter", sans-serif;
+	--pg-font-body: "Inter", system-ui, sans-serif;
+
+	--pg-ink: #14171a;
+	--pg-ink-muted: #4f5560;
+	--pg-ink-subtle: #6b7280;
+	--pg-ink-soft: #2b2f38;
+
+	--pg-page: #fbf4f8;
+	--pg-card: #ffffff;
+	--pg-card-border: #ebd8e3;
+	--pg-row-line: #f1e3eb;
+	--pg-button-border: #d9c3d1;
+
+	--pg-surface-default: #f2a7cf;
+    --pg-surface-tinted: #f9ddec;
+	--pg-surface-hover: #ea8dbf;
+	--pg-surface-wash: #fdeff6;
+	--pg-surface-deep: #9e1b62;
+
+	--pg-sidebar: #0c1014;
+	--pg-sidebar-hover: #1a2027;
+	--pg-sidebar-line: #232a32;
+	--pg-sidebar-text: #c9cfd3;
+	--pg-sidebar-muted: #a9b1b7;
+
+	--pg-card-radius: 0.875rem;
+	--pg-button-radius: 0.5rem;
+
+	--pg-bottom-bar-height: 0rem;
+	--pg-bottom-bar-space: 0rem;
+}
+
+/* 57.5rem = sidebar og innhold ved siden av hverandre: under dette flyttes menyen ned i en stripe nederst. */
+@media (max-width: 57.5rem) {
+	:root {
+		--pg-bottom-bar-height: 4rem;
+		--pg-bottom-bar-space: calc(var(--pg-bottom-bar-height) + env(safe-area-inset-bottom));
+	}
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	overscroll-behavior: none;
+	-webkit-text-size-adjust: 100%;
+	text-size-adjust: 100%;
+	-webkit-tap-highlight-color: transparent;
+	touch-action: manipulation;
+}
+
+a,
+button,
+label,
+summary {
+	-webkit-user-select: none;
+	user-select: none;
+	-webkit-touch-callout: none;
+}
+
+@media (hover: none) {
+	a,
+	button {
+		transition: opacity 0.1s;
+	}
+
+	a:active,
+	button:not(:disabled):active {
+		opacity: 0.6;
+	}
+}
+
+@media (max-width: 57.5rem) {
+	input,
+	select,
+	textarea {
+		font-size: 1rem;
+	}
+}
+
+body {
+	margin: 0;
+	font-family: var(--pg-font-body);
+	font-size: 1rem;
+	line-height: normal;
+	background: var(--pg-page);
+	color: var(--pg-ink);
+}
+
+h1,
+h2,
+h3,
+p {
+	margin: 0;
+}
+
+h1,
+h2,
+h3 {
+	font-family: var(--pg-font-heading);
+}
+
+a {
+	color: var(--pg-ink);
+}
+
+@media (hover: hover) {
+	a:hover {
+		color: var(--pg-surface-deep);
+	}
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+	animation-duration: 0.15s;
+}
