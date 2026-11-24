@@ -1,5 +1,4 @@
 <script lang="ts">
-    import CountBadge from "#lib/components/CountBadge.svelte"
 	import { getNavigationItems, handleNavigationClick, isCurrentPage } from "#lib/navigation.svelte.ts"
 
 	const navigationItems = $derived(getNavigationItems())
