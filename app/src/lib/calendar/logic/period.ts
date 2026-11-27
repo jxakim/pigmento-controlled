@@ -1,8 +1,13 @@
 import { formatIsoDate, getIsoWeekNumber } from "./dates"
 
-export type Level = "year" | "month" | "week" | "day"
+export const levels = ["year", "month", "week", "day"] as const
+export type Level = (typeof levels)[number]
 export type Period = { level: Level; date: Date }
 export type Range = { start: Date; end: Date }
+
+export function isLevel(value: string | null): value is Level {
+	return levels.includes(value as Level)
+}
 
 export function getRange({ level, date }: Period): Range {
 	const year = date.getFullYear()
@@ -73,4 +78,23 @@ const parentLevel: Record<Level, Level | undefined> = {
 export function getParent(period: Period): Period | undefined {
 	const level = parentLevel[period.level]
 	return level && { level, date: period.date }
+}
+
+export function getKey({ level, date }: Period): string {
+	const dateSplit = formatIsoDate(date).split("-");
+
+	switch (level) {
+		case "year":
+			return dateSplit[0]
+		case "month":
+			return `${dateSplit[0]}-${dateSplit[1]}`
+		case "week": {
+			const { start } = getRange({ level, date })
+			const thursday = new Date(start.getFullYear(), start.getMonth(), start.getDate() + 3)
+			const week = String(getIsoWeekNumber(date)).padStart(2, "0")
+			return `${thursday.getFullYear()}-W${week}`
+		}
+		case "day":
+			return formatIsoDate(date)
+	}
 }
