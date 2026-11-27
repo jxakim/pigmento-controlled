@@ -11,6 +11,13 @@ function times(items: CalendarItem[]): string[] {
 }
 
 describe("splitByDay", () => {
+	it.each([
+		["bad", "zzz"],
+		["2026-00-15T10:00", "2026-01-01T00:00"],
+	])("returns nothing for an invalid time (%s), instead of looping forever", (start, end) => {
+		expect(splitByDay(item(start, end))).toEqual([])
+	})
+
 	it("keeps an item within one day as it is", () => {
 		expect(times(splitByDay(item("2026-11-05T10:00", "2026-11-05T12:00")))).toEqual([
 			"2026-11-05T10:00 2026-11-05T12:00",

@@ -10,6 +10,20 @@ export type CalendarItem = {
 	kind: string // e.g. the appointment type, or "planned" / "worked"
 }
 
+const timePattern = /^(\d{4}-\d{2}-\d{2})T(\d{2}):(\d{2})$/
+
+export function isTime(value: string): boolean {
+	const match = timePattern.exec(value)
+	if (!match) return false
+
+	const [, date, hour, minute] = match
+	return formatIsoDate(parseIsoDate(date)) === date && Number(hour) < 24 && Number(minute) < 60
+}
+
+export function isValidItem(item: CalendarItem): boolean {
+	return isTime(item.start) && isTime(item.end) && item.start < item.end
+}
+
 function toTime(date: Date): string {
 	return `${formatIsoDate(date)}T00:00`
 }
@@ -34,9 +48,11 @@ export function splitByDay(item: CalendarItem): CalendarItem[] {
 	while (start < item.end) {
 		const day = parseIsoDate(start.slice(0, 10))
 		const nextMidnight = toTime(new Date(day.getFullYear(), day.getMonth(), day.getDate() + 1))
-		
+
 		// biome-ignore lint/complexity/useMathMinMax: comparing time strings, Math.min would return NaN
         const end = item.end < nextMidnight ? item.end : nextMidnight
+
+		if (end <= start) return []
 
 		segments.push({ ...item, start, end })
 		start = end
